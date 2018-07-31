@@ -12,7 +12,7 @@ Repository for *Multimodal Network Diffusion Predicts Future Disease-Gene-Chemic
 
 ## Download code
 ```bash
-git clone https://some.where.out.there
+git clone https://github.com/ChihHsuLin/multimodal-network-diffusion
 ```
 
 ## Installation
@@ -31,7 +31,6 @@ source ~/.bash_profile
 
 ### Install
 ```bash
-git clone https://github.com/ChihHsuLin/multimodal-network-diffusion
 cd multimodal-network-diffusion
 ./install.sh
 ```
