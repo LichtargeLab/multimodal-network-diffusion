@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+
+
+<p id="header_text_info"></p>
+<h2>Links predicted</h2>
+  <p>
+    <input type="button" onclick='selectAll()' value="Select All"/>
+    <input type="button" onclick='UnSelectAll()' value="Unselect All"/>
+  </p>
+
+<p id="demo"></p>
+
+<!-- <script type="text/javascript" src="jquery-latest.js"></script> 
+<script type="text/javascript" src="jquery.tablesorter.js"></script>  -->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">      </script>
+<script type="text/javascript">
+
+//place names and values here
+
+//var pred_names = ["CHEM1","CHEM2","CHEM3","CHEM4","CHEM5"];
+//var mat = [[1,1,1,1,1],[2,2,2,2,2],[3,3,3,3,3],[4,4,4,4,4]];
+//var query_names = ["GENE1","GENE2","GENE3","GENE4"];
+//var color_pos = [[1,1],[2,2],[3,3]]
+//var algo = "AptRank"
+//var net = "CTD2016DG"
+var header_text = "<h1>";
+header_text += pred;
+header_text += " predictions from algorithm (";
+header_text += algo;
+header_text += ") and network (";
+header_text += net;
+header_text += ") for ";
+header_text += query;
+header_text += "</h1><h2>Instructions:</h2>The numbers in each column represent the rank (the lower the better) of the predicted association in that column.</br> Cells that are of <span style=\"background-color:yellow\">yellow background</span>  means that these relationships are known in the network.";
+
+// " Notes to help read this file </h2> </br> Algorithm used to generate this file is "
+// header_text += ".</br> Network used is ";
+// header_text += net;
+// header_text += ".</br>";
+
+var text = "";
+for (i = 0; i < pred_names.length; i++) {
+    text += "<br>"+pred_names[i]+"<input type=\"checkbox\" name=\"acs\" id="+pred_names[i].replace(/[ ,]/g, '').toLowerCase()+" checked>";
+    //console.log(pred_names[i]);
+}
+
+text += "<input type=\"text\" id=\"myInput\" onkeyup=\"myFunction()\" placeholder=\"Search for names..\" title=\"Type in a name\">";
+text += "<table id=\"myTable\" class=\"tablesorter\">";
+text += "<tr class=\"header\">";
+var width = 1/(pred_names.length+1);
+text += "<th style=\"width:"+width.toString()+";\">Predicted "+pred+"</th>";
+for (i = 0; i < pred_names.length; i++) {
+    text += "<th style=\"width:"+width.toString()+";\">"+pred_names[i]+"</th>";
+}
+text += "</tr>";
+for (i = 0; i < query_names.length; i ++) {
+    text += "<tr>";
+    text += "<td>"+query_names[i]+"</td>";
+    for (j = 0; j < pred_names.length; j ++) {
+        if (mat[i][j] != 0) {
+          text += "<td>"+mat[i][j].toString()+"</td>";
+        }
+        else {
+          text += "<td>0.00</td>";
+        }
+    }
+    text += "</tr>";
+}
+text += "</table>";
+document.getElementById("demo").innerHTML = text;
+document.getElementById("header_text_info").innerHTML = header_text;
+// function init() {
+//     var sorter = tsorter.create("myTable");
+//     }
+// init();
+
+// $(document).ready(function() 
+//     { 
+//         $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+//     } 
+// ); 
+
+var table=document.getElementById("myTable");
+var row, col;
+for (i = 0; i < color_pos.length; i ++) {
+  row = color_pos[i][0];
+  col = color_pos[i][1];
+  table.rows[row].cells[col].style.backgroundColor = 'yellow';
+}
+
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+$(function () {
+    function toggle(){
+        var index;
+        var cols = $('#myTable tr th');
+        for(i = 0; i < cols.length; i++){ 
+//    console.log(cols[i].textContent.replace(/[ ,]/g, '').toLowerCase());
+    if(cols[i].textContent.replace(/[ ,]/g, '').toLowerCase() === this.id) {index = i+1;} 
+  }
+        //console.log(index);
+        if (this.checked) {
+            $('#myTable th:nth-child(' + index + ')').show();
+            $('#myTable td:nth-child(' + index + ')').show();
+        } else {
+            $('#myTable th:nth-child(' + index + ')').hide();
+            $('#myTable td:nth-child(' + index + ')').hide();
+        }
+    };    
+    for (i = 0; i < pred_names.length; i++) {
+        $('#'+pred_names[i].replace(/[ ,]/g, '').toLowerCase()).change(toggle);
+//  console.log(pred_names[i].replace(/[ ,]/g, '').toLowerCase());
+    }
+})  
+
+    function selectAll() {
+        var items = document.getElementsByName('acs');
+        //console.log(items.length);
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+        
+        for (var i = 2;i< items.length+2;i++){
+            $('#myTable th:nth-child(' + i + ')').show();
+            $('#myTable td:nth-child(' + i + ')').show();
+        }
+    }
+
+    function UnSelectAll() {
+        var items = document.getElementsByName('acs');
+        //console.log(items.length);
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+        for (var i = 2;i< items.length+2;i++){
+            $('#myTable th:nth-child(' + i + ')').hide();
+            $('#myTable td:nth-child(' + i + ')').hide();
+        }
+    } 
+</script>
+
+</body>
+</html>

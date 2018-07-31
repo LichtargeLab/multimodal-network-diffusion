@@ -1,0 +1,8 @@
+# Required julia package:
+Pkg.add("MatrixNetworks")
+Pkg.add("Convex")
+Pkg.add("SCS")
+Pkg.add("StatsBase")
+Pkg.add("NPZ")
+Pkg.add("ECOS")
+Pkg.add("MLBase")
