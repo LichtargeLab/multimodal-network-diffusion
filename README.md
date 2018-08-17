@@ -170,4 +170,6 @@ Project organization
 [time_stamped.tar.gz](http://static.lichtargelab.org/Diffusion2018/time_stamped.tar.gz) (md5: 16a18fce049820f5cce95d7f5eba3916; 22 GB after compression)
 5. Precomputed algorithm results of prospective experiments (could be downloaded through `download_precomp.sh`):  
 [prospective.tar.gz](http://static.lichtargelab.org/Diffusion2018/prospective.tar.gz) (md5: 5cbd2158c9b8895cb4aa836e1800ae48; 21.6 GB after compression)
+6. Html files of prediction results of prospective experiments (could be downloaded through `download_precomp.sh`):  
+[Diffusion2018predictions_html.tar.gz](http://static.lichtargelab.org/Diffusion2018/Diffusion2018predictions_html.tar.gz) (md5: 82bbe7cfd119adb9d10046b049959717; 2.2 Mb after compression)
 --------
