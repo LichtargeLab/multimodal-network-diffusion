@@ -8,11 +8,13 @@ read -p "10-fold cross-validation (275 GB after compression) [y]/n ? " kfold
 read -p "Leave-one-mode-out (9.4 GB after compression) [y]/n ? " lomo
 read -p "Time-stamped (22 GB after compression) [y]/n ? " ts
 read -p "Prospective (21.6 GB after compression) [y]/n ? " pro
+read -p "Prospective result html files (2.2 MB after compression) [y]/n ? " html
 
 kfold=${kfold:-y}
 lomo=${lomo:-y}
 ts=${ts:-y}
 pro=${pro:-y}
+html=${html:-y}
 
 function check_download_file()
 {
@@ -78,6 +80,11 @@ fi
 if [[ `echo $lomo | tr '[:upper:]' '[:lower:]'` = "y"* ]]
 then
     check_download_file lomo.tar.gz f996d985a4fa9c6baf02ff91f2021cf2 $CHECK_MD5SUM
+fi
+
+if [[ `echo $html | tr '[:upper:]' '[:lower:]'` = "y"* ]]
+then
+    check_download_file Diffusion2018predictions_html.tar.gz 82bbe7cfd119adb9d10046b049959717 $CHECK_MD5SUM
 fi
 
 # # MD5_DATA=`md5 data.tar.gz`
