@@ -1,7 +1,7 @@
 Multimodal Network Diffusion
 ==============================
 
-Repository for *Multimodal Network Diffusion Predicts Future Disease-Gene-Chemical Associations*.  
+Repository for [*Multimodal Network Diffusion Predicts Future Disease-Gene-Chemical Associations*](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty858/5124277).  
 If you have any questions or comments, feel free to contact Chih-Hsu Lin (chihhsul[at]bcm[dot]edu).
 
 --------
@@ -16,7 +16,7 @@ If you have any questions or comments, feel free to contact Chih-Hsu Lin (chihhs
 --------
 ## Download code
 ```bash
-git clone https://github.com/ChihHsuLin/multimodal-network-diffusion
+git clone https://github.com/LichtargeLab/multimodal-network-diffusion
 ```
 
 --------
